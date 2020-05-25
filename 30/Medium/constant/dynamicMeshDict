@@ -1,0 +1,80 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  7
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      dynamicMeshDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+dynamicFvMesh   dynamicMotionSolverFvMesh;
+
+motionSolverLibs ("libsixDoFRigidBodyMotion.so");
+
+motionSolver    sixDoFRigidBodyMotion;
+
+patches         (cylinders);
+innerDistance   2.5;
+outerDistance   10;
+
+THETA		45;
+
+C1		#calc"cos($THETA)"
+C2		#calc"cos(90-$THETA)"
+S1		#calc"sin($THETA)"
+S2		#calc"sin(90-$THETA)"
+
+mass            500000000;
+centreOfMass    (20 20 0);
+momentOfInertia (100 100 100);
+
+orientation
+(
+    0.9953705935 0.09611129781 0
+    -0.09611129781 0.9953705935 0
+    0 0 1
+);
+angularMomentum (0 0 0);
+g               (0 0 0);
+rho             rhoInf;
+rhoInf          1;
+report          on;
+
+solver
+{
+    type symplectic;
+}
+
+constraints
+{
+
+    zAxis
+    {
+        sixDoFRigidBodyMotionConstraint axis;
+        axis                (0 0 1);
+    }
+}
+
+restraints
+{
+
+    axialSpring
+    {
+        sixDoFRigidBodyMotionRestraint linearAxialAngularSpring;
+
+        axis            (0 0 1);
+        stiffness       70000;
+        damping         0.5;
+        referenceOrientation $orientation;
+    }
+}
+
+
+// ************************************************************************* //

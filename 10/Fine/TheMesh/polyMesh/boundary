@@ -1,0 +1,60 @@
+/*---------------------------------------------------------------------------*\
+|       OpenFoam mesh file generated using HyperMesh Version: 2019.1.0.20     |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       polyBoundaryMesh;
+    location    "constant/polyMesh";
+    object      boundary;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+7
+(
+    left 
+    {
+        type            patch;
+        nFaces          640;
+        startFace       420032;
+    }
+    right 
+    {
+        type            patch;
+        nFaces          640;
+        startFace       420672;
+    }
+    down 
+    {
+        type            empty;
+        nFaces          38336;
+        startFace       421312;
+    }
+    up 
+    {
+        type            empty;
+        nFaces          38336;
+        startFace       459648;
+    }
+    top 
+    {
+        type            patch;
+        nFaces          960;
+        startFace       497984;
+    }
+    bottom 
+    {
+        type            patch;
+        nFaces          960;
+        startFace       498944;
+    }
+    cylinders 
+    {
+        type            wall;
+        nFaces          128;
+        startFace       499904;
+    }
+)
+
+// ************************************************************************* //
